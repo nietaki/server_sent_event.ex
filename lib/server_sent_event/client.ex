@@ -1,4 +1,5 @@
 defmodule ServerSentEvent.Client do
+  require Logger
   @moduledoc ~S"""
   Client that pulls and processes events from a server sent event stream.
 
@@ -161,7 +162,7 @@ defmodule ServerSentEvent.Client do
       "" ->
         :ok #empty buffer
       non_empty ->
-        Logger.warn("SSECliennt left with a non-empty buffer: #{sse_buffer}")
+        Logger.warn("SSEClient left with a non-empty buffer: #{sse_buffer}")
     end
 
     # Call active before processing events in case event processing is slow
