@@ -157,6 +157,13 @@ defmodule ServerSentEvent.Client do
     {:ok, {events, sse_buffer}} =
       ServerSentEvent.parse_all(state.sse_buffer <> :erlang.iolist_to_binary(chunks))
 
+    case sse_buffer do
+      "" ->
+        :ok #empty buffer
+      non_empty ->
+        Logger.warn("SSECliennt left with a non-empty buffer: #{sse_buffer}")
+    end
+
     # Call active before processing events in case event processing is slow
     :ok = set_active(state.socket)
 
